@@ -1,0 +1,69 @@
+/* Reset de estilos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fondo y tipografía general */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0a0a23; /* fondo azul oscuro tipo informático */
+  color: #fff;
+  padding: 20px;
+}
+
+/* Encabezado */
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Contenedor de cada semestre */
+.semestre {
+  margin-bottom: 30px;
+}
+
+/* Contenedor de cursos */
+.cursos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Estilos para cada curso */
+.curso {
+  background-color: #1e1e4e;
+  border: 2px solid #3a3a70;
+  padding: 10px;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.curso:hover {
+  transform: scale(1.05);
+}
+
+/* Estilos para el tooltip */
+.tooltip {
+  position: absolute;
+  background: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 0.9em;
+  z-index: 1000;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 600px) {
+  .curso {
+    width: 100%;
+  }
+}
