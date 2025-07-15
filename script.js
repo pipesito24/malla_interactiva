@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const cursos = document.querySelectorAll(".curso");
+  const graduacion = document.getElementById("graduacion");
+  let aprobados = new Set();
 
-  // Buscar curso por nombre exacto
   function buscarCursoPorNombre(nombre) {
     for (const c of cursos) {
       if (c.dataset.nombre.trim() === nombre.trim()) return c;
@@ -9,27 +10,21 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 
-  // Buscar cursos que tienen como prerrequisito un nombre dado
   function buscarCursosConPrereq(nombrePrereq) {
     return Array.from(cursos).filter(c => c.dataset.prereq.trim() === nombrePrereq.trim());
   }
 
-  // Estado global: cursos aprobados
-  let aprobados = new Set();
-
-  // Actualiza desbloqueo borroso recursivamente
   function actualizarEstado() {
     cursos.forEach(curso => {
       const prereq = curso.dataset.prereq.trim();
       if (prereq === "") {
-        // Semestre 1 o sin prereq, desbloqueado siempre
         curso.classList.add("desbloqueado");
         curso.classList.remove("borroso");
       } else {
-        // Si el prerrequisito está aprobado, desbloquea
         if (aprobados.has(prereq)) {
-          curso.classList.add("desbloqueado");
+          curso.classList.add("desbloqueado", "anim-zoom-in");
           curso.classList.remove("borroso");
+          setTimeout(() => curso.classList.remove("anim-zoom-in"), 600);
         } else {
           curso.classList.remove("desbloqueado");
           curso.classList.add("borroso");
@@ -38,89 +33,74 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Inicializa estados
-  actualizarEstado();
+  function verificarGraduacion() {
+    const totalCursos = document.querySelectorAll(".curso").length;
+    const totalAprobados = aprobados.size;
+    if (totalAprobados === totalCursos) {
+      graduacion.classList.remove("oculto");
+      lanzarSerpentinas();
+    }
+  }
 
   cursos.forEach(curso => {
     curso.addEventListener("click", () => {
       const nombre = curso.dataset.nombre.trim();
-
-      // Toggle aprobado o no
       if (aprobados.has(nombre)) {
         aprobados.delete(nombre);
-        curso.classList.remove("aprobado");
+        curso.classList.remove("aprobado", "anim-bounce");
       } else {
         aprobados.add(nombre);
-        curso.classList.add("aprobado");
+        curso.classList.add("aprobado", "anim-bounce");
+        setTimeout(() => curso.classList.remove("anim-bounce"), 700);
       }
-
-      // Actualizar desbloqueos
       actualizarEstado();
+      verificarGraduacion();
     });
   });
+
+  actualizarEstado();
 });
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.06); }
-  100% { transform: scale(1); }
-}
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
+function lanzarSerpentinas() {
+  const canvas = document.getElementById("serpentinas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-@keyframes rotateIn {
-  0% { transform: rotate(-15deg) scale(0.8); opacity: 0; }
-  100% { transform: rotate(0deg) scale(1); opacity: 1; }
-}
+  const particles = [];
 
-@keyframes zoomIn {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
+  for (let i = 0; i < 300; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * -canvas.height,
+      size: Math.random() * 5 + 5,
+      color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+      speedY: Math.random() * 3 + 2
+    });
+  }
 
-.anim-bounce {
-  animation: bounce 0.6s ease;
-}
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.fillStyle = p.color;
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
 
-.anim-zoom-in {
-  animation: zoomIn 0.6s ease;
-}
+  function update() {
+    particles.forEach(p => {
+      p.y += p.speedY;
+      if (p.y > canvas.height) p.y = 0;
+    });
+  }
 
-#graduacion {
-  position: fixed;
-  inset: 0;
-  background: white;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 40px;
-  text-align: center;
-}
+  function animate() {
+    draw();
+    update();
+    requestAnimationFrame(animate);
+  }
 
-#graduacion h1 {
-  font-size: 2.8rem;
-  color: #003366;
-  animation: zoomIn 1s ease-out;
-}
-
-#stickers {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.sticker {
-  width: 100px;
-  height: 100px;
-  animation: bounce 2s infinite;
-}
-
-.oculto {
-  display: none !important;
+  animate();
 }
