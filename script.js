@@ -1,53 +1,61 @@
 document.addEventListener("DOMContentLoaded", () => {
   const cursos = document.querySelectorAll(".curso");
 
-  // Función para buscar un curso por nombre exacto
+  // Buscar curso por nombre exacto
   function buscarCursoPorNombre(nombre) {
     for (const c of cursos) {
-      if (c.textContent.trim() === nombre.trim()) return c;
+      if (c.dataset.nombre.trim() === nombre.trim()) return c;
     }
     return null;
   }
 
-  cursos.forEach(curso => {
-    curso.addEventListener("click", () => {
-      // Si ya está aprobado, no hacer nada
-      if (curso.classList.contains("aprobado")) return;
+  // Buscar cursos que tienen como prerrequisito un nombre dado
+  function buscarCursosConPrereq(nombrePrereq) {
+    return Array.from(cursos).filter(c => c.dataset.prereq.trim() === nombrePrereq.trim());
+  }
 
-      // Marcar como aprobado
-      curso.classList.add("aprobado");
-      curso.classList.remove("resaltado");
+  // Estado global: cursos aprobados
+  let aprobados = new Set();
 
-      // Abrir el prerrequisito si no es "Ninguno"
-      const prereq = curso.getAttribute("data-prereq");
-      if (prereq && prereq !== "Ninguno") {
-        const cursoPrereq = buscarCursoPorNombre(prereq);
-        if (cursoPrereq && !cursoPrereq.classList.contains("aprobado")) {
-          // Resaltar el prerrequisito
-          cursoPrereq.classList.add("resaltado");
-
-          // Scroll suave al ramo prerrequisito
-          cursoPrereq.scrollIntoView({ behavior: "smooth", block: "center" });
-
-          // Quitar resaltado después de 3 segundos
-          setTimeout(() => {
-            cursoPrereq.classList.remove("resaltado");
-          }, 3000);
+  // Actualiza desbloqueo borroso recursivamente
+  function actualizarEstado() {
+    cursos.forEach(curso => {
+      const prereq = curso.dataset.prereq.trim();
+      if (prereq === "") {
+        // Semestre 1 o sin prereq, desbloqueado siempre
+        curso.classList.add("desbloqueado");
+        curso.classList.remove("borroso");
+      } else {
+        // Si el prerrequisito está aprobado, desbloquea
+        if (aprobados.has(prereq)) {
+          curso.classList.add("desbloqueado");
+          curso.classList.remove("borroso");
+        } else {
+          curso.classList.remove("desbloqueado");
+          curso.classList.add("borroso");
         }
       }
     });
+  }
 
-    // Hover efectos (para agrandar)
-    curso.addEventListener("mouseenter", () => {
-      if (!curso.classList.contains("aprobado")) {
-        curso.style.transform = "scale(1.05)";
-      }
-    });
+  // Inicializa estados
+  actualizarEstado();
 
-    curso.addEventListener("mouseleave", () => {
-      if (!curso.classList.contains("aprobado")) {
-        curso.style.transform = "scale(1)";
+  cursos.forEach(curso => {
+    curso.addEventListener("click", () => {
+      const nombre = curso.dataset.nombre.trim();
+
+      // Toggle aprobado o no
+      if (aprobados.has(nombre)) {
+        aprobados.delete(nombre);
+        curso.classList.remove("aprobado");
+      } else {
+        aprobados.add(nombre);
+        curso.classList.add("aprobado");
       }
+
+      // Actualizar desbloqueos
+      actualizarEstado();
     });
   });
 });
