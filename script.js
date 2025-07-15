@@ -1,33 +1,53 @@
-// JavaScript para agregar interactividad a la malla
-document.addEventListener("DOMContentLoaded", function() {
-  const tooltip = document.getElementById("tooltip");
+document.addEventListener("DOMContentLoaded", () => {
   const cursos = document.querySelectorAll(".curso");
 
-  // Agregamos eventos a cada curso
+  // Función para buscar un curso por nombre exacto
+  function buscarCursoPorNombre(nombre) {
+    for (const c of cursos) {
+      if (c.textContent.trim() === nombre.trim()) return c;
+    }
+    return null;
+  }
+
   cursos.forEach(curso => {
-    // Al pasar el mouse, mostramos el tooltip con el prerrequisito
-    curso.addEventListener("mouseover", function(e) {
+    curso.addEventListener("click", () => {
+      // Si ya está aprobado, no hacer nada
+      if (curso.classList.contains("aprobado")) return;
+
+      // Marcar como aprobado
+      curso.classList.add("aprobado");
+      curso.classList.remove("resaltado");
+
+      // Abrir el prerrequisito si no es "Ninguno"
       const prereq = curso.getAttribute("data-prereq");
-      tooltip.innerText = "Prerrequisito: " + prereq;
-      tooltip.style.opacity = 1;
+      if (prereq && prereq !== "Ninguno") {
+        const cursoPrereq = buscarCursoPorNombre(prereq);
+        if (cursoPrereq && !cursoPrereq.classList.contains("aprobado")) {
+          // Resaltar el prerrequisito
+          cursoPrereq.classList.add("resaltado");
+
+          // Scroll suave al ramo prerrequisito
+          cursoPrereq.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          // Quitar resaltado después de 3 segundos
+          setTimeout(() => {
+            cursoPrereq.classList.remove("resaltado");
+          }, 3000);
+        }
+      }
     });
 
-    // Movemos el tooltip siguiendo el cursor
-    curso.addEventListener("mousemove", function(e) {
-      tooltip.style.left = (e.pageX + 10) + "px";
-      tooltip.style.top = (e.pageY + 10) + "px";
+    // Hover efectos (para agrandar)
+    curso.addEventListener("mouseenter", () => {
+      if (!curso.classList.contains("aprobado")) {
+        curso.style.transform = "scale(1.05)";
+      }
     });
 
-    // Al salir del elemento, ocultamos el tooltip
-    curso.addEventListener("mouseout", function() {
-      tooltip.style.opacity = 0;
-    });
-
-    // Al hacer click se puede mostrar una alerta con más detalles
-    curso.addEventListener("click", function() {
-      alert("Detalle del curso:\n" +
-            "Nombre: " + curso.innerText + "\n" +
-            "Prerrequisito: " + curso.getAttribute("data-prereq"));
+    curso.addEventListener("mouseleave", () => {
+      if (!curso.classList.contains("aprobado")) {
+        curso.style.transform = "scale(1)";
+      }
     });
   });
 });
