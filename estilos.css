@@ -1,69 +1,151 @@
-/* Reset de estilos */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Fondo y tipografía general */
+/* Fondo general azul oscuro */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #0a0a23; /* fondo azul oscuro tipo informático */
-  color: #fff;
-  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0c1a3f; /* azul muy oscuro */
+  color: #e8eaf6;
+  padding: 30px;
+  user-select: none;
 }
 
-/* Encabezado */
+/* Header */
 header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
-/* Contenedor de cada semestre */
+h1 {
+  font-weight: 700;
+  font-size: 2.8rem;
+  color: #a5c8ff;
+  text-shadow: 0 0 8px #448aff;
+}
+
+/* Contenedor general para los semestres como columnas */
+.container {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+/* Cada semestre es una columna */
 .semestre {
-  margin-bottom: 30px;
+  min-width: 260px;
+  background: #102c5a;
+  border-radius: 12px;
+  padding: 20px 15px 40px;
+  box-shadow: 0 0 15px #003a8c;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-/* Contenedor de cursos */
+/* Título del semestre */
+.semestre h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #bbd7ff;
+  text-shadow: 0 0 5px #6fa8ff;
+  user-select: none;
+}
+
+/* Container de cursos dentro del semestre */
 .cursos {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* Estilos para cada curso */
+/* Cada curso es un recuadro */
 .curso {
-  background-color: #1e1e4e;
-  border: 2px solid #3a3a70;
-  padding: 10px;
-  width: 200px;
-  text-align: center;
+  background-color: #113366;
+  padding: 16px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #d1defb;
   cursor: pointer;
   position: relative;
-  transition: transform 0.2s;
+  user-select: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-position 0.8s ease;
+  /* Fondo con rayas diagonales sutiles */
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.05) 0,
+      rgba(255, 255, 255, 0.05) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  background-size: 20px 20px;
+  background-position: 0 0;
 }
 
+/* Hover - efecto luz y ligero zoom */
 .curso:hover {
   transform: scale(1.05);
+  box-shadow:
+    0 6px 20px rgba(68, 138, 255, 0.7),
+    0 0 15px rgba(68, 138, 255, 0.6);
+  background-position: 20px 20px;
 }
 
-/* Estilos para el tooltip */
-.tooltip {
-  position: absolute;
-  background: #333;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
-  font-size: 0.9em;
-  z-index: 1000;
+/* Curso aprobado - tachado y menos opaco */
+.curso.aprobado {
+  text-decoration: line-through;
+  color: #8a9bb8;
+  background-color: #084182;
+  box-shadow: none;
+  cursor: default;
 }
 
-/* Ajustes para dispositivos móviles */
-@media (max-width: 600px) {
-  .curso {
-    width: 100%;
+/* Curso resaltado (prerrequisito abierto) */
+.curso.resaltado {
+  box-shadow:
+    0 0 18px 3px #ffbb33;
+  border: 2px solid #ffbb33;
+  z-index: 10;
+}
+
+/* Scrollbars semestres */
+.semestre::-webkit-scrollbar {
+  width: 8px;
+}
+
+.semestre::-webkit-scrollbar-track {
+  background: #0c1a3f;
+}
+
+.semestre::-webkit-scrollbar-thumb {
+  background: #4477ff;
+  border-radius: 20px;
+}
+
+/* Responsive - para pantallas muy pequeñas */
+@media (max-width: 700px) {
+  .container {
+    flex-wrap: wrap;
+  }
+
+  .semestre {
+    min-width: 100%;
+    max-height: none;
+    margin-bottom: 20px;
   }
 }
