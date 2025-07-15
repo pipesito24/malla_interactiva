@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Malla Interactiva - Estilo Pinterest</title>
+  <title>Malla Interactiva - Ingeniería Informática</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
@@ -12,52 +12,54 @@
   </header>
 
   <main class="container">
+
     <section class="semestre" id="semestre1">
       <h2>Semestre 1</h2>
       <div class="cursos">
-        <div class="curso" data-prereq="Ninguno">Fundamentos de programación</div>
-        <div class="curso" data-prereq="Ninguno">Introducción al cloud computing</div>
-        <div class="curso" data-prereq="Ninguno">Bases de innovación</div>
-        <div class="curso" data-prereq="Ninguno">Nivelación matemática</div>
-        <div class="curso" data-prereq="Ninguno">Habilidades de comunicación</div>
+        <div class="curso" data-nombre="Fundamentos de programación" data-prereq="">Fundamentos de programación</div>
+        <div class="curso" data-nombre="Introducción al cloud computing" data-prereq="">Introducción al cloud computing</div>
+        <div class="curso" data-nombre="Bases de innovación" data-prereq="">Bases de innovación</div>
+        <div class="curso" data-nombre="Nivelación matemática" data-prereq="">Nivelación matemática</div>
+        <div class="curso" data-nombre="Habilidades de comunicación" data-prereq="">Habilidades de comunicación</div>
       </div>
     </section>
 
     <section class="semestre" id="semestre2">
       <h2>Semestre 2</h2>
       <div class="cursos">
-        <div class="curso" data-prereq="Fundamentos de programación">Desarrollo orientado a objetos</div>
-        <div class="curso" data-prereq="Ninguno">Base de datos aplicada 1</div>
-        <div class="curso" data-prereq="Bases de innovación">Ingeniería de requisitos</div>
-        <div class="curso" data-prereq="Nivelación matemática">Matemática aplicada</div>
-        <div class="curso" data-prereq="Ninguno">Inglés elemental 1</div>
-        <div class="curso" data-prereq="Ninguno">Fundamentos de antropología</div>
+        <div class="curso" data-nombre="Desarrollo orientado a objetos" data-prereq="Fundamentos de programación">Desarrollo orientado a objetos</div>
+        <div class="curso" data-nombre="Base de datos aplicada 1" data-prereq="">Base de datos aplicada 1</div>
+        <div class="curso" data-nombre="Ingeniería de requisitos" data-prereq="Bases de innovación">Ingeniería de requisitos</div>
+        <div class="curso" data-nombre="Matemática aplicada" data-prereq="Nivelación matemática">Matemática aplicada</div>
+        <div class="curso" data-nombre="Inglés elemental 1" data-prereq="">Inglés elemental 1</div>
+        <div class="curso" data-nombre="Fundamentos de antropología" data-prereq="">Fundamentos de antropología</div>
       </div>
     </section>
 
     <section class="semestre" id="semestre3">
       <h2>Semestre 3</h2>
       <div class="cursos">
-        <div class="curso" data-prereq="Desarrollo orientado a objetos">Desarrollo full stack 1</div>
-        <div class="curso" data-prereq="Base de datos aplicada 1">Base de datos aplicada 2</div>
-        <div class="curso" data-prereq="Ingeniería de requisitos">Ingeniería de software</div>
-        <div class="curso" data-prereq="Inglés elemental 1">Inglés elemental 2</div>
-        <div class="curso" data-prereq="Ninguno">Ramo especial obligatorio</div>
+        <div class="curso" data-nombre="Desarrollo full stack 1" data-prereq="Desarrollo orientado a objetos">Desarrollo full stack 1</div>
+        <div class="curso" data-nombre="Base de datos aplicada 2" data-prereq="Base de datos aplicada 1">Base de datos aplicada 2</div>
+        <div class="curso" data-nombre="Ingeniería de software" data-prereq="Ingeniería de requisitos">Ingeniería de software</div>
+        <div class="curso" data-nombre="Inglés elemental 2" data-prereq="Inglés elemental 1">Inglés elemental 2</div>
+        <div class="curso" data-nombre="Ramo especial obligatorio" data-prereq="">Ramo especial obligatorio</div>
       </div>
     </section>
 
     <section class="semestre" id="semestre4">
       <h2>Semestre 4</h2>
       <div class="cursos">
-        <div class="curso" data-prereq="Desarrollo orientado a objetos">Desarrollo full stack 2</div>
-        <div class="curso" data-prereq="Desarrollo orientado a objetos">Desarrollo de aplicaciones móviles</div>
-        <div class="curso" data-prereq="Base de datos aplicada 2">Taller de base de datos</div>
-        <div class="curso" data-prereq="Matemática aplicada">Estadística descriptiva</div>
-        <div class="curso" data-prereq="Inglés elemental 2">Inglés intermedio 1</div>
-        <div class="curso" data-prereq="Fundamentos de antropología">Ética para el trabajo</div>
-        <div class="curso" data-prereq="Ninguno">Ramo especial obligatorio</div>
+        <div class="curso" data-nombre="Desarrollo full stack 2" data-prereq="Desarrollo orientado a objetos">Desarrollo full stack 2</div>
+        <div class="curso" data-nombre="Desarrollo de aplicaciones móviles" data-prereq="Desarrollo orientado a objetos">Desarrollo de aplicaciones móviles</div>
+        <div class="curso" data-nombre="Taller de base de datos" data-prereq="Base de datos aplicada 2">Taller de base de datos</div>
+        <div class="curso" data-nombre="Estadística descriptiva" data-prereq="Matemática aplicada">Estadística descriptiva</div>
+        <div class="curso" data-nombre="Inglés intermedio 1" data-prereq="Inglés elemental 2">Inglés intermedio 1</div>
+        <div class="curso" data-nombre="Ética para el trabajo" data-prereq="Fundamentos de antropología">Ética para el trabajo</div>
+        <div class="curso" data-nombre="Ramo especial obligatorio 4" data-prereq="">Ramo especial obligatorio</div>
       </div>
     </section>
+
   </main>
 
   <script src="script.js"></script>
