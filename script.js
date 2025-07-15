@@ -59,3 +59,68 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes rotateIn {
+  0% { transform: rotate(-15deg) scale(0.8); opacity: 0; }
+  100% { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.anim-bounce {
+  animation: bounce 0.6s ease;
+}
+
+.anim-zoom-in {
+  animation: zoomIn 0.6s ease;
+}
+
+#graduacion {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+  text-align: center;
+}
+
+#graduacion h1 {
+  font-size: 2.8rem;
+  color: #003366;
+  animation: zoomIn 1s ease-out;
+}
+
+#stickers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.sticker {
+  width: 100px;
+  height: 100px;
+  animation: bounce 2s infinite;
+}
+
+.oculto {
+  display: none !important;
+}
