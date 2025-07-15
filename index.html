@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Malla Interactiva</title>
-  <link rel="stylesheet" href="estilos.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Malla Interactiva - Estilo Pinterest</title>
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <header>
-    <h1>Malla Interactiva</h1>
+    <h1>Malla Interactiva - Ingeniería Informática</h1>
   </header>
 
-  <main>
-    <!-- Semestre 1 -->
-    <div class="semestre" id="semestre1">
+  <main class="container">
+    <section class="semestre" id="semestre1">
       <h2>Semestre 1</h2>
       <div class="cursos">
         <div class="curso" data-prereq="Ninguno">Fundamentos de programación</div>
@@ -22,10 +21,9 @@
         <div class="curso" data-prereq="Ninguno">Nivelación matemática</div>
         <div class="curso" data-prereq="Ninguno">Habilidades de comunicación</div>
       </div>
-    </div>
+    </section>
 
-    <!-- Semestre 2 -->
-    <div class="semestre" id="semestre2">
+    <section class="semestre" id="semestre2">
       <h2>Semestre 2</h2>
       <div class="cursos">
         <div class="curso" data-prereq="Fundamentos de programación">Desarrollo orientado a objetos</div>
@@ -35,10 +33,9 @@
         <div class="curso" data-prereq="Ninguno">Inglés elemental 1</div>
         <div class="curso" data-prereq="Ninguno">Fundamentos de antropología</div>
       </div>
-    </div>
+    </section>
 
-    <!-- Semestre 3 -->
-    <div class="semestre" id="semestre3">
+    <section class="semestre" id="semestre3">
       <h2>Semestre 3</h2>
       <div class="cursos">
         <div class="curso" data-prereq="Desarrollo orientado a objetos">Desarrollo full stack 1</div>
@@ -47,10 +44,9 @@
         <div class="curso" data-prereq="Inglés elemental 1">Inglés elemental 2</div>
         <div class="curso" data-prereq="Ninguno">Ramo especial obligatorio</div>
       </div>
-    </div>
+    </section>
 
-    <!-- Semestre 4 -->
-    <div class="semestre" id="semestre4">
+    <section class="semestre" id="semestre4">
       <h2>Semestre 4</h2>
       <div class="cursos">
         <div class="curso" data-prereq="Desarrollo orientado a objetos">Desarrollo full stack 2</div>
@@ -61,11 +57,8 @@
         <div class="curso" data-prereq="Fundamentos de antropología">Ética para el trabajo</div>
         <div class="curso" data-prereq="Ninguno">Ramo especial obligatorio</div>
       </div>
-    </div>
+    </section>
   </main>
-
-  <!-- Tooltip para mostrar información adicional al pasar el mouse -->
-  <div id="tooltip" class="tooltip"></div>
 
   <script src="script.js"></script>
 </body>
